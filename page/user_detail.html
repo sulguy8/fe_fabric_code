@@ -442,7 +442,7 @@
 
         async function insertTrx() {
             if(isValid()) {
-                await fetch('http://localhost:3000/selectWatchList', {
+                await fetch('http://localhost:3000/insertTrx', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
