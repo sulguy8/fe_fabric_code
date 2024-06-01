@@ -62,7 +62,7 @@
     <div class="content">
         <button onclick="goBack()">Back to user list</button>
         <h1>User Detail</h1>
-        <button style="float: right;" onclick="setUserInfo(await selectUser(userId), true); userModal.showModal();">정보수정</button>
+        <button style="float: right;" onclick="userModal.showModal();">정보수정</button>
         <div id="user-table-container">
             <table id="userInfo">
                 <tr>
@@ -113,7 +113,7 @@
         </div>
         
         <h1>Transactions</h1>
-        <button style="float: right;" onclick="setTrxInfo(selectUser(userId)); trxModal.showModal();">거래 생성</button>
+        <button style="float: right;" onclick="trxModal.showModal();">거래 생성</button>
         <div id="table-container">
             <table id="trxList">
             </table>
