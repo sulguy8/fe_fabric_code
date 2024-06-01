@@ -250,9 +250,12 @@
             setTrxList(userInfo);
         }
 
-        function setUserInfo(userInfo, isM) {
-            document.querySelector('#' + (isM ? 'mUserAddr' : 'userAddr')).innerText = userInfo['Address'];
-            document.querySelector('#' + (isM ? 'mUserOwner' : 'userOwner')).innerText = userInfo['Owner'];
+        function setUserInfo(userInfo) {
+            document.querySelector('#userAddr').innerText = userInfo['Address'];
+            document.querySelector('#mUserAddr').innerText = userInfo['Address'];
+
+            document.querySelector('#userOwner').innerText = userInfo['Owner'];
+            document.querySelector('#mUserOwner').innerText = userInfo['Owner'];
 
             document.querySelector('#userAge').innerText = userInfo['Age'];
             document.querySelector('#mUserAge').value = userInfo['Age'];
@@ -271,14 +274,18 @@
             document.querySelector('#userBalance').innerText = userInfo['Balance'].toLocaleString();
             document.querySelector('#mUserBalance').value = userInfo['Balance'];
 
-            document.querySelector('#' + (isM ? 'mUserIsWlf' : 'userIsWlf')).innerText = 
-                Array.from(
+            let isWlf = Array.from(
                     JSON.parse(localStorage.getItem('WatchList')), (target) => {
                     return target.owner === userInfo['Owner'];
                 }).includes(true)
+            document.querySelector('#userIsWlf').innerText = isWlf;
+            document.querySelector('#mUserIsWlf').innerText = isWlf;
+                
+            document.querySelector('#userCreateDt').innerText = userInfo['CreateDt'];
+            document.querySelector('#mUserCreateDt').innerText = userInfo['CreateDt'];
 
-            document.querySelector('#' + (isM ? 'mUserCreateDt' : 'userCreateDt')).innerText = userInfo['CreateDt'];
-            document.querySelector('#' + (isM ? 'mUserUpdateDt' : 'userUpdateDt')).innerText = userInfo['UpdateDt'];
+            document.querySelector('#userUpdateDt').innerText = userInfo['UpdateDt'];
+            document.querySelector('#mUserUpdateDt').innerText = userInfo['UpdateDt'];
         }
 
         async function setTrxList(userInfo) {
