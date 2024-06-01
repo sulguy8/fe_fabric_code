@@ -99,7 +99,7 @@
                     Object.keys(item).forEach(key => {
                         const td = document.createElement('td');
                         if(key !== 'Txs') {
-                            td.textContent = item[key].toLocaleString();
+                            td.textContent = item[key];
                             row.appendChild(td);
                             row.onclick = () => {
                                 location.href = 'user_detail.html?userId=' + address; 
