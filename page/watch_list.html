@@ -63,7 +63,10 @@
         <div style="float: right;">
             <button onclick="setWatchList()">Refresh</button>
         </div>
-        <div id="table-container"></div>
+        <div id="table-container">
+            <table id="watchList">
+            </table>
+        </div>
     </div>
 
     <script>
@@ -74,44 +77,47 @@
             setWatchList();
         }
 
-        function setWatchList() {
-            createHtmlTable(selectWatchList());
-        }
+        async function setWatchList() {
+            let cnt = 1;
+            let html = 
+                `
+                    <tr>
+                        <th>No</th>
+                        <th>Owner</th>
+                        <th>Age</th>
+                        <th>Gender</th>
+                        <th>Job</th>
+                    </tr>    
+                `;
+            for(let watchInfo of await selectWatchList()) {
+                html += 
+                `
+                    <tr>
+                        <td>${cnt++}</td>
+                        <td>${watchInfo.Owner}</td>
+                        <td>${watchInfo.Age}</td>
+                        <td>${watchInfo.Gender}</td>
+                        <td>${watchInfo.Job}</td>
+                    </tr>
+                `
+            }
+            document.querySelector('#watchList').innerHTML = html;
 
-        function createHtmlTable(jsonData) {
-            const table = document.createElement('table');
-            const thead = document.createElement('thead');
-            const headerRow = document.createElement('tr');
-
-            Object.keys(jsonData[0]).forEach(key => {
-                const th = document.createElement('th');
-                th.textContent = key.charAt(0).toUpperCase() + key.slice(1);
-                headerRow.appendChild(th);
-            });
-
-            thead.appendChild(headerRow);
-            table.appendChild(thead);
-
-            const tbody = document.createElement('tbody');
-            jsonData.forEach(item => {
-                const id = item.no;
-                const row = document.createElement('tr');
-                Object.keys(item).forEach(key => {
-                    const td = document.createElement('td');
-                    td.textContent = item[key].toLocaleString();
-                    row.appendChild(td);
-                });
-                tbody.appendChild(row);
-            });
-
-            table.appendChild(tbody);
-            document.getElementById('table-container').innerHTML = '';
-            document.getElementById('table-container').appendChild(table);
         }
 
         /* API 호출부 */
-        function selectWatchList() {
-            return JSON.parse(localStorage.getItem('WatchList'))
+        async function selectWatchList() {
+            return await fetch('http://localhost:3000/selectWatchList')
+            .then(response => {
+                if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();    
+            }).then(data => {
+                return data;
+            }).catch(error => {
+                console.error('There has been a problem with your fetch operation:', error);
+            });
         }
 
     </script>

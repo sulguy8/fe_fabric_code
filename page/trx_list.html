@@ -99,11 +99,10 @@
                     </tr>    
                 `;
             for(let trxInfo of await selectTrxList()) {
-                let TxId = trxInfo.TxId;
                 if((stFilterFlag && trxInfo.IsSt) || !stFilterFlag) {
                     html += 
                     `
-                        <tr onclick='movePage("${TxId}")'>
+                        <tr>
                             <td>${cnt++}</td>
                             <td>${trxInfo.TxId}</td>
                             <td>${trxInfo.Amount}</td>
