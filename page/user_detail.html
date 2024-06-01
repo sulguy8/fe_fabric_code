@@ -280,15 +280,8 @@
             document.querySelector('#' + (isM ? 'mUserUpdateDt' : 'userUpdateDt')).innerText = userInfo['UpdateDt'];
         }
 
-        function setTrxList(userInfo) {
-            createHtmlTable(
-                selectTrxList().reduce((acc, cur) => {
-                    if([cur.sender, cur.receiver].includes(userInfo.address)) {
-                        acc.push(cur);
-                    };
-                    return acc;
-                }, [])
-            );
+        async function setTrxList(userInfo) {
+            await selectTrxList();
         } 
 
         function setTrxInfo(userInfo) {
@@ -392,8 +385,18 @@
             );
         }
 
-        function selectTrxList() {
-            return JSON.parse(localStorage.getItem('Transaction'));
+        async function selectTrxList() {
+            return await fetch('http://localhost:3000/selectTrxList')
+            .then(response => {
+                if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();    
+            }).then(data => {
+                return data;
+            }).catch(error => {
+                console.error('There has been a problem with your fetch operation:', error);
+            });
         }
 
         function insertTrx() {
