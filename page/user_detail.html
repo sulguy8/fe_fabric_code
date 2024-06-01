@@ -243,8 +243,8 @@
 
         init();
 
-        function init() {
-            const userInfo = selectUser(userId);
+        async function init() {
+            const userInfo = await selectUser(userId);
             setUserInfo(userInfo);
             setTrxList(userInfo);
         }
@@ -357,13 +357,18 @@
             return JSON.parse(localStorage.getItem('User'));
         }
 
-        function selectUser(addr) {
-            for(let user of selectUserList()) {
-                if(addr == user.address) {
-                    return user;
+        async function selectUser(addr) {
+            return await fetch('http://localhost:3000/selectUser?userId' + addr)
+            .then(response => {
+                if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
                 }
-            }
-            return {};
+                return response.json();    
+            }).then(data => {
+                return data;
+            }).catch(error => {
+                console.error('There has been a problem with your fetch operation:', error);
+            });
         }
 
         function updateUser() {
