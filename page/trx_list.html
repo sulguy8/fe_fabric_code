@@ -64,7 +64,10 @@
             <button onclick="setTrxList('Y')">의심거래만 보기</button>
             <button onclick="setTrxList('N')">Refresh</button>
         </div>
-        <div id="table-container"></div>
+        <div id="table-container">
+            <table id="trxList">
+            </table>
+        </div>
     </div>
 
     <script>
@@ -74,56 +77,60 @@
         function init() {
             setTrxList('N');
         }
-
-        function setTrxList(isSt) {
-            createHtmlTable(
-                selectTrxList().reduce((acc, cur) => {
-                    if(isSt == 'Y') {
-                        if(cur.isSt) {
-                            acc.push(cur);
-                        }
-                    } else {
-                        acc.push(cur);
-                    }
-                    return acc;
-                }, [])
-            );
-        }
-
-        function createHtmlTable(jsonData) {
-            const table = document.createElement('table');
-            const thead = document.createElement('thead');
-            const headerRow = document.createElement('tr');
-
-            Object.keys(jsonData[0]).forEach(key => {
-                const th = document.createElement('th');
-                th.textContent = key.charAt(0).toUpperCase() + key.slice(1);
-                headerRow.appendChild(th);
-            });
-
-            thead.appendChild(headerRow);
-            table.appendChild(thead);
-
-            const tbody = document.createElement('tbody');
-            jsonData.forEach(item => {
-                const id = item.no;
-                const row = document.createElement('tr');
-                Object.keys(item).forEach(key => {
-                    const td = document.createElement('td');
-                    td.textContent = item[key].toLocaleString();
-                    row.appendChild(td);
-                });
-                tbody.appendChild(row);
-            });
-
-            table.appendChild(tbody);
-            document.getElementById('table-container').innerHTML = '';
-            document.getElementById('table-container').appendChild(table);
-        }
+        
+        async function setTrxList(isSt) {
+            let cnt = 1;
+            let html = 
+                `
+                    <tr>
+                        <th>No</th>
+                        <th>TxId</th>
+                        <th>Amount(원)</th>
+                        <th>Sender</th>
+                        <th>Receiver</th>
+                        <th>IsSt</th>
+                        <th>StCode</th>
+                        <th>StMsg</th>
+                        <th>StSvrt</th>
+                        <th>Timestamp</th>
+                    </tr>    
+                `;
+            for(let trxInfo of await selectTrxList()) {
+                let TxId = trxInfo.TxId;
+                if((isSt === 'Y' && trxInfo.TxId === 'Y') || isSt === 'N') {
+                    html += 
+                    `
+                        <tr onclick='movePage("${TxId}")'>
+                            <td>${cnt++}</td>
+                            <td>${trxInfo.TxId}</td>
+                            <td>${trxInfo.Amount}</td>
+                            <td>${trxInfo.Sender}</td>
+                            <td>${trxInfo.Receiver}</td>
+                            <td>${trxInfo.IsSt}</td>
+                            <td>${trxInfo.StCode}</td>
+                            <td>${trxInfo.StMsg}</td>
+                            <td>${trxInfo.StSvrt}</td>
+                            <td>${trxInfo.Timestamp}</td>
+                        </tr>
+                    `
+                } 
+            }
+            document.querySelector('#trxList').innerHTML = html;
+        } 
 
         /* API 호출부 */
-        function selectTrxList() {
-            return JSON.parse(localStorage.getItem('Transaction'));
+        async function selectTrxList() {
+            return await fetch('http://localhost:3000/selectTrxList')
+            .then(response => {
+                if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();    
+            }).then(data => {
+                return data;
+            }).catch(error => {
+                console.error('There has been a problem with your fetch operation:', error);
+            });
         }
     </script>
 </body>
