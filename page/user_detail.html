@@ -250,34 +250,34 @@
         }
 
         function setUserInfo(userInfo, isM) {
-            document.querySelector('#' + (isM ? 'mUserAddr' : 'userAddr')).innerText = userInfo['address'];
-            document.querySelector('#' + (isM ? 'mUserOwner' : 'userOwner')).innerText = userInfo['owner'];
+            document.querySelector('#' + (isM ? 'mUserAddr' : 'userAddr')).innerText = userInfo['Address'];
+            document.querySelector('#' + (isM ? 'mUserOwner' : 'userOwner')).innerText = userInfo['Owner'];
 
-            document.querySelector('#userAge').innerText = userInfo['age'];
-            document.querySelector('#mUserAge').value = userInfo['age'];
+            document.querySelector('#userAge').innerText = userInfo['Age'];
+            document.querySelector('#mUserAge').value = userInfo['Age'];
 
-            document.querySelector('#userGender').innerText = userInfo['gender'];
+            document.querySelector('#userGender').innerText = userInfo['Gender'];
             document.querySelectorAll('[name=mUserGender]').forEach((ele) => {
-                ele.checked = ele.value == userInfo['gender'] ? true :false;
+                ele.checked = ele.value == userInfo['Gender'] ? true :false;
             })
 
-            document.querySelector('#userJob').innerText = userInfo['job'];
-            document.querySelector('#mUserJob').value = userInfo['job'];
+            document.querySelector('#userJob').innerText = userInfo['Job'];
+            document.querySelector('#mUserJob').value = userInfo['Job'];
 
-            document.querySelector('#userStatus').innerText = userInfo['status'];
-            document.querySelector('#mUserStatus').value = userInfo['status'];
+            document.querySelector('#userStatus').innerText = userInfo['Status'];
+            document.querySelector('#mUserStatus').value = userInfo['Status'];
 
-            document.querySelector('#userBalance').innerText = userInfo['balance'].toLocaleString();
-            document.querySelector('#mUserBalance').value = userInfo['balance'];
+            document.querySelector('#userBalance').innerText = userInfo['Balance'].toLocaleString();
+            document.querySelector('#mUserBalance').value = userInfo['Balance'];
 
             document.querySelector('#' + (isM ? 'mUserIsWlf' : 'userIsWlf')).innerText = 
                 Array.from(
                     JSON.parse(localStorage.getItem('WatchList')), (target) => {
-                    return target.owner === userInfo['owner'];
+                    return target.owner === userInfo['Owner'];
                 }).includes(true)
 
-            document.querySelector('#' + (isM ? 'mUserCreateDt' : 'userCreateDt')).innerText = userInfo['createDt'];
-            document.querySelector('#' + (isM ? 'mUserUpdateDt' : 'userUpdateDt')).innerText = userInfo['updateDt'];
+            document.querySelector('#' + (isM ? 'mUserCreateDt' : 'userCreateDt')).innerText = userInfo['CreateDt'];
+            document.querySelector('#' + (isM ? 'mUserUpdateDt' : 'userUpdateDt')).innerText = userInfo['UpdateDt'];
         }
 
         function setTrxList(userInfo) {
