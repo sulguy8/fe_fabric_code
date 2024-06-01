@@ -62,7 +62,7 @@
     <div class="content">
         <button onclick="goBack()">Back to user list</button>
         <h1>User Detail</h1>
-        <button style="float: right;" onclick="setUserInfo(selectUser(userId), true); userModal.showModal();">정보수정</button>
+        <button style="float: right;" onclick="setUserInfo(await selectUser(userId), true); userModal.showModal();">정보수정</button>
         <div id="user-table-container">
             <table id="userInfo">
                 <tr>
