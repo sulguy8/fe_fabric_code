@@ -113,7 +113,7 @@
     
         /* API 호출부 */
         async function selectUserList() {
-            return await fetch('https://api.example.com/data')
+            return await fetch('http://localhost:3000/selectUserList')
             .then(response => {
                 if (!response.ok) {
                 throw new Error('Network response was not ok ' + response.statusText);
