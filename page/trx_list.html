@@ -61,8 +61,8 @@
     <div class="content">
         <h1>Transactions</h1>
         <div style="float: right;">
-            <button onclick="setTrxList('Y')">의심거래만 보기</button>
-            <button onclick="setTrxList('N')">Refresh</button>
+            <button onclick="setTrxList()">의심거래만 보기</button>
+            <button onclick="setTrxList()">Refresh</button>
         </div>
         <div id="table-container">
             <table id="trxList">
@@ -74,11 +74,13 @@
 
         init();
 
+        let stFilterFlag = false;
+
         function init() {
-            setTrxList('N');
+            setTrxList(stFlag);
         }
-        
-        async function setTrxList(isSt) {
+
+        async function setTrxList() {
             let cnt = 1;
             let html = 
                 `
@@ -97,7 +99,7 @@
                 `;
             for(let trxInfo of await selectTrxList()) {
                 let TxId = trxInfo.TxId;
-                if((isSt === 'Y' && trxInfo.TxId === 'Y') || isSt === 'N') {
+                if((stFilterFlag && trxInfo.IsSt === 'Y') || !stFilterFlag) {
                     html += 
                     `
                         <tr onclick='movePage("${TxId}")'>
@@ -116,6 +118,8 @@
                 } 
             }
             document.querySelector('#trxList').innerHTML = html;
+
+            stFilterFlag = !stFilterFlag;
         } 
 
         /* API 호출부 */
