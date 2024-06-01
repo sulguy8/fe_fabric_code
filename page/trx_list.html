@@ -119,7 +119,7 @@
             }
             document.querySelector('#trxList').innerHTML = html;
 
-            stFilterFlag = !isRefresh ? stFilterFlag : !stFilterFlag;
+            stFilterFlag = isRefresh ? stFilterFlag : !stFilterFlag;
             document.querySelector('#stFilter').innerText = stFilterFlag ? '의심거래만 보기' : '모두 보기';
         } 
 
