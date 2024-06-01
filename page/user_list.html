@@ -92,9 +92,10 @@
                     </tr>    
                 `;
             for(let userInfo of await selectUserList()) {
+                let address = userInfo.Address;
                 html += 
                 `
-                    <tr onclick='movePage(${userInfo.Address})'>
+                    <tr onclick='movePage("${address}")'>
                         <td>${cnt++}</td>
                         <td>${userInfo.Address}</td>
                         <td>${userInfo.Owner}</td>
