@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    if(!localStorage.getItem('initFlag')) {
+        localStorage.setItem('initFlag', true);
+        localStorage.setItem('User', JSON.stringify([
+            {
+                address: '0xf413ea..238q1e',
+                owner: '가기규',
+                age: 30, 
+                gender: 'F',
+                job: '직장인',
+                status: '정상',
+                balance: 30000000,
+                createDt: '2024-05-08 11:00:11',
+                updateDt: '2024-05-23 01:29:01',
+            },
+            {   
+                address: '0xh82aeg..14efw2',
+                owner: '비탈릭',
+                age: 27, 
+                gender: 'M',
+                job: '사업가',
+                status: '정상',
+                balance: 410000000,
+                createDt: '2024-05-08 11:00:11',
+                updateDt: '2024-05-18 13:03:38',
+            },
+            {
+                address: '0xq8eu88..ju9qq3',
+                owner: '김정은',
+                age: 47, 
+                gender: 'M',
+                job: '정치인',
+                status: '정지',
+                balance: 410000000,
+                createDt: '2024-05-08 11:00:11',
+                updateDt: '2024-05-11 20:10:41',
+            },
+        ]));
+        localStorage.setItem('Transaction', JSON.stringify([
+            {
+                txId: '0xf413ea..238q1e',
+                amount: 100000,
+                sender: '0xf413ea..238q1e',
+                receiver: '0xh82aeg..14efw2',
+                isSt: false,
+                stCode: '',
+                stMsg: '',
+                stSvrt: '',
+                timestamp: '2024-05-23 01:29:01',
+            },
+            {
+                txId: '0xh82aeg..14efw2',
+                amount: 10000000,
+                sender: '0xf413ea..238q1e',
+                receiver: '0xh82aeg..14efw2',
+                isSt: true,
+                stCode: '101',
+                stMsg: '[1일] 합산 [1천만 원] 이상의 가상자산 입금 후 [24시간] 이내 [1일] 합산 [1천만 원] 이상 가상자산 출',
+                stSvrt: '1',
+                timestamp: '2024-05-18 13:03:38',
+            },
+            {
+                txId: '0xq8eu88..ju9qq3',
+                amount: 3000000,
+                sender: '0xf413ea..238q1e',
+                receiver: '0xh82aeg..14efw2',
+                isSt: true,
+                stCode: '119',
+                stMsg: 'WLF 요주의인물 리스트 고객이 [1일]에 합산 [3백만 원] 이상의 가상자산을 출금하는 경우',
+                stSvrt: '9',
+                timestamp: '2024-05-11 20:10:41',
+            },
+        ]));
+        localStorage.setItem('WatchList', JSON.stringify([
+            {
+                owner: '김정은',
+                age: 47,
+                gender: 'M',
+                job: '정치인',
+            },
+            {
+                owner: '권도형',
+                age: 32,
+                gender: 'M',
+                job: '사업가',
+            },
+            {
+                owner: '오사마빈라덴',
+                age: 60,
+                gender: 'M',
+                job: '테러리스트',
+            },
+            {
+                owner: '루자이그나토바',
+                age: 43,
+                gender: 'F',
+                job: '사업가',
+            },
+        ]));
+    }
+    
+    location.href = './page/user_list.html';
+    </script>
+</body>
+</html>

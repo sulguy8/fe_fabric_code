@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            height: 100%;
+            width: 200px;
+            background-color: #333;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+        .navbar a {
+            padding: 6px 8px 6px 16px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
+        }
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .content {
+            margin-left: 200px;
+            padding: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="./user_list.html">UserList</a>
+        <a href="./trx_list.html">Transaction</a>
+        <a href="./st_rules.html">ST Rules</a>
+        <a href="./watch_list.html">Watch List</a>
+    </div>
+
+    <div class="content">
+        <h1>User List</h1>
+        <button style="float: right;" onclick="init();">Refresh</button>
+        <div id="table-container"></div>
+    </div>
+
+    <script>
+        init();
+
+        function init() {
+            setUserList();
+        }
+
+        function setUserList() {
+            createHtmlTable(selectUserList());
+        }
+
+        function createHtmlTable(jsonData) {
+            const table = document.createElement('table');
+            const thead = document.createElement('thead');
+            const headerRow = document.createElement('tr');
+
+            document.getElementById('table-container').innerHTML = '';
+
+            if(jsonData.length) {
+                Object.keys(jsonData[0]).forEach(key => {
+                    const th = document.createElement('th');
+                    th.textContent = key.charAt(0).toUpperCase() + key.slice(1);
+                    headerRow.appendChild(th);
+                });
+
+                thead.appendChild(headerRow);
+                table.appendChild(thead);
+
+                const tbody = document.createElement('tbody');
+                jsonData.forEach(item => {
+                    const address = item.address;
+                    const row = document.createElement('tr');
+                    Object.keys(item).forEach(key => {
+                        const td = document.createElement('td');
+                        td.textContent = item[key].toLocaleString();
+                        row.appendChild(td);
+                        row.onclick = () => {
+                            location.href = 'user_detail.html?userId=' + address; 
+                        }
+                    });
+                    tbody.appendChild(row);
+                });
+                table.appendChild(tbody);
+                document.getElementById('table-container').appendChild(table);
+            }
+        }
+    
+        /* API 호출부 */
+        function selectUserList() {
+            return JSON.parse(localStorage.getItem('User'));
+        }
+
+    </script>
+</body>
+</html>
