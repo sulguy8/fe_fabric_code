@@ -358,7 +358,7 @@
         }
 
         async function selectUser(addr) {
-            return await fetch('http://localhost:3000/selectUser?userId' + addr)
+            return await fetch('http://localhost:3000/selectUser?userId=' + addr)
             .then(response => {
                 if (!response.ok) {
                 throw new Error('Network response was not ok ' + response.statusText);
