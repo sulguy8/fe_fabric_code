@@ -114,7 +114,7 @@
         
         <h1>Transactions</h1>
         <button style="float: right;" onclick="setTrxInfo(selectUser(userId)); trxModal.showModal();">거래 생성</button>
-        <div id="trx-table-container">
+        <div id="trxList">
     
         </div>
     </div>
@@ -281,7 +281,41 @@
         }
 
         async function setTrxList(userInfo) {
-            await selectTrxList();
+            let cnt = 1;
+            let html = 
+                `
+                    <tr>
+                        <th>No</th>
+                        <th>TxId</th>
+                        <th>Amount(원)</th>
+                        <th>Sender</th>
+                        <th>Receiver</th>
+                        <th>IsSt</th>
+                        <th>StCode</th>
+                        <th>StMsg</th>
+                        <th>StSvrt</th>
+                        <th>Timestamp</th>
+                    </tr>    
+                `;
+            for(let trxInfo of await selectTrxList()) {
+                let TxId = trxInfo.TxId;
+                html += 
+                `
+                    <tr onclick='movePage("${TxId}")'>
+                        <td>${cnt++}</td>
+                        <td>${trxInfo.TxId}</td>
+                        <td>${trxInfo.Amount}</td>
+                        <td>${trxInfo.Sender}</td>
+                        <td>${trxInfo.Receiver}</td>
+                        <td>${trxInfo.IsSt}</td>
+                        <td>${trxInfo.StCode}</td>
+                        <td>${trxInfo.StMsg}</td>
+                        <td>${trxInfo.StSvrt}</td>
+                        <td>${trxInfo.Timestamp}</td>
+                    </tr>
+                `
+            }
+            document.querySelector('#trxList').innerHTML = html;
         } 
 
         function setTrxInfo(userInfo) {
