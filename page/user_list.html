@@ -61,7 +61,10 @@
     <div class="content">
         <h1>User List</h1>
         <button style="float: right;" onclick="init();">Refresh</button>
-        <div id="table-container"></div>
+        <div id="table-container">
+            <table id="userList">
+            </table>         
+        </div>
     </div>
 
     <script>
@@ -72,45 +75,40 @@
         }
 
         async function setUserList() {
-            createHtmlTable(await selectUserList());
-        }
-
-        function createHtmlTable(jsonData) {
-            const table = document.createElement('table');
-            const thead = document.createElement('thead');
-            const headerRow = document.createElement('tr');
-
-            document.getElementById('table-container').innerHTML = '';
-
-            if(jsonData.length) {
-                Object.keys(jsonData[0]).forEach(key => {
-                    const th = document.createElement('th');
-                    th.textContent = key.charAt(0).toUpperCase() + key.slice(1);
-                    headerRow.appendChild(th);
-                });
-
-                thead.appendChild(headerRow);
-                table.appendChild(thead);
-
-                const tbody = document.createElement('tbody');
-                jsonData.forEach(item => {
-                    const address = item.address;
-                    const row = document.createElement('tr');
-                    Object.keys(item).forEach(key => {
-                        const td = document.createElement('td');
-                        if(key !== 'Txs') {
-                            td.textContent = item[key];
-                            row.appendChild(td);
-                            row.onclick = () => {
-                                location.href = 'user_detail.html?userId=' + address; 
-                            }
-                        }
-                    });
-                    tbody.appendChild(row);
-                });
-                table.appendChild(tbody);
-                document.getElementById('table-container').appendChild(table);
+            let cnt = 1;
+            let html = 
+                `
+                    <tr>
+                        <th>No</th>
+                        <th>Address</th>
+                        <th>Owner</th>
+                        <th>Age</th>
+                        <th>Gender</th>
+                        <th>Job</th>
+                        <th>Status</th>
+                        <th>Balance(원)</th>
+                        <th>CreateDt</th>
+                        <th>UpdateDt</th>
+                    </tr>    
+                `;
+            for(let userInfo of await selectUserList()) {
+                html += 
+                `
+                    <tr>
+                        <td>${cnt++}</td>
+                        <td>${userInfo.Address}</td>
+                        <td>${userInfo.Owner}</td>
+                        <td>${userInfo.Age}</td>
+                        <td>${userInfo.Gender}</td>
+                        <td>${userInfo.Job}</td>
+                        <td>${userInfo.Status}</td>
+                        <td>${userInfo.Balance}</td>
+                        <td>${userInfo.CreateDt}</td>
+                        <td>${userInfo.UpdateDt}</td>
+                    </tr>
+                `
             }
+            document.querySelector('#userList').innerHTML = html;
         }
     
         /* API 호출부 */
