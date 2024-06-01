@@ -98,10 +98,12 @@
                     const row = document.createElement('tr');
                     Object.keys(item).forEach(key => {
                         const td = document.createElement('td');
-                        td.textContent = item[key].toLocaleString();
-                        row.appendChild(td);
-                        row.onclick = () => {
-                            location.href = 'user_detail.html?userId=' + address; 
+                        if(key !== 'Txs') {
+                            td.textContent = item[key].toLocaleString();
+                            row.appendChild(td);
+                            row.onclick = () => {
+                                location.href = 'user_detail.html?userId=' + address; 
+                            }
                         }
                     });
                     tbody.appendChild(row);
