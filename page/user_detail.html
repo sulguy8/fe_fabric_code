@@ -440,44 +440,32 @@
             });
         }
 
-        function insertTrx() {
-            let trxInfo = {
-                txId: generateHash(),
-                amount: parseInt(document.querySelector('#trxAmount').value),
-                sender: document.querySelector('#trxSender').innerText,
-                receiver: document.querySelector('#trxReceiver').value,
-                isSt: false,
-                stCode: '',
-                stMsg: '',
-                stSvrt: '',
-                timestamp: getCurrentFormattedDate(),
-            }
-
+        async function insertTrx() {
             if(isValid()) {
-                let trxList = selectTrxList();
-                trxList.push(trxInfo);
-                localStorage.setItem('Transaction', JSON.stringify(trxList));
-
-                // 테스트용
-                let sender = {
-                    balance: parseInt(document.querySelector('#mUserBalance').value) - trxInfo.amount,
-                    updateDt: getCurrentFormattedDate(),
-                }
-                localStorage.setItem('User', JSON.stringify(
-                    selectUserList().reduce((acc, cur) => {
-                        cur.address === userId ? 
-                            acc.push(Object.assign(cur, sender)) 
-                            : 
-                            cur.address === trxInfo.receiver ? 
-                                acc.push(Object.assign(cur, {
-                                    balance: cur.balance + trxInfo.amount,
-                                    updateDt: getCurrentFormattedDate(),
-                                }))
-                                :
-                                acc.push(cur)
-                        return acc;                
-                    }, []))
-                );
+                await fetch('http://localhost:3000/selectWatchList', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        txId: generateHash(),
+                        amount: parseInt(document.querySelector('#trxAmount').value),
+                        sender: document.querySelector('#trxSender').innerText,
+                        receiver: document.querySelector('#trxReceiver').value,
+                        isSt: false,
+                        stCode: '',
+                        stMsg: '',
+                        stSvrt: '',
+                        timestamp: getCurrentFormattedDate(),
+                    })
+                })
+                .then(response => response.text())
+                .then(result => {
+                    console.log('Success:', result); 
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
             }
         }
     </script>
