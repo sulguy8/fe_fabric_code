@@ -61,7 +61,7 @@
     <div class="content">
         <h1>Transactions</h1>
         <div style="float: right;">
-            <button onclick="setTrxList()">의심거래만 보기</button>
+            <button id="stFilter" onclick="setTrxList()">의심거래만 보기</button>
             <button onclick="setTrxList()">Refresh</button>
         </div>
         <div id="table-container">
@@ -99,7 +99,7 @@
                 `;
             for(let trxInfo of await selectTrxList()) {
                 let TxId = trxInfo.TxId;
-                if((stFilterFlag && trxInfo.IsSt === 'Y') || !stFilterFlag) {
+                if((stFilterFlag && trxInfo.IsSt) || !stFilterFlag) {
                     html += 
                     `
                         <tr onclick='movePage("${TxId}")'>
@@ -120,6 +120,7 @@
             document.querySelector('#trxList').innerHTML = html;
 
             stFilterFlag = !stFilterFlag;
+            document.querySelector('#stFilter').innerText = stFilterFlag ? '의심거래만 보기' : '모두 보기';
         } 
 
         /* API 호출부 */
