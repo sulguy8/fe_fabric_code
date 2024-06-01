@@ -94,7 +94,7 @@
             for(let userInfo of await selectUserList()) {
                 html += 
                 `
-                    <tr>
+                    <tr onclick="movePage(${userInfo.Address})">
                         <td>${cnt++}</td>
                         <td>${userInfo.Address}</td>
                         <td>${userInfo.Owner}</td>
@@ -109,6 +109,10 @@
                 `
             }
             document.querySelector('#userList').innerHTML = html;
+        }
+
+        function movePage(addr) {
+            location.href = `/user_detail.html?userId=${addr}`;
         }
     
         /* API 호출부 */
