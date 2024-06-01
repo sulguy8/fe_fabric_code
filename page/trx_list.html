@@ -119,10 +119,8 @@
             }
             document.querySelector('#trxList').innerHTML = html;
 
-            if(!isRefresh) {
-                stFilterFlag = !stFilterFlag;
-                document.querySelector('#stFilter').innerText = stFilterFlag ? '의심거래만 보기' : '모두 보기';
-            }
+            stFilterFlag = !isRefresh ? stFilterFlag : !stFilterFlag;
+            document.querySelector('#stFilter').innerText = stFilterFlag ? '의심거래만 보기' : '모두 보기';
         } 
 
         /* API 호출부 */
