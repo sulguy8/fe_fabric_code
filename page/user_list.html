@@ -104,12 +104,25 @@
                         <td>${userInfo.Job}</td>
                         <td>${userInfo.Status}</td>
                         <td>${userInfo.Balance.toLocaleString()}</td>
-                        <td>${userInfo.CreateDt}</td>
-                        <td>${userInfo.UpdateDt}</td>
+                        <td>${getFormatDateTime(userInfo.CreateDt)}</td>
+                        <td>${getFormatDateTime(userInfo.UpdateDt)}</td>
                     </tr>
                 `
             }
             document.querySelector('#userList').innerHTML = html;
+        }
+
+        function getFormatDateTime(datetimeString) {
+            const year = datetimeString.substring(0, 4);
+            const month = datetimeString.substring(4, 6);
+            const day = datetimeString.substring(6, 8);
+            const hours = datetimeString.substring(8, 10);
+            const minutes = datetimeString.substring(10, 12);
+            const seconds = datetimeString.substring(12, 14);
+
+            const formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+            
+            return formattedDateTime;
         }
 
         function movePage(addr) {
