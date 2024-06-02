@@ -109,10 +109,10 @@
                             <td>${trxInfo.Sender}</td>
                             <td>${trxInfo.Receiver}</td>
                             <td>${trxInfo.IsSt}</td>
-                            <td>${trxInfo.StCode}</td>
-                            <td>${trxInfo.StMsg}</td>
-                            <td>${trxInfo.StSvrt}</td>
-                            <td>${trxInfo.Timestamp}</td>
+                            <td>${trxInfo.StCode || ''}</td>
+                            <td>${trxInfo.StMsg || ''}</td>
+                            <td>${trxInfo.StSvrt || ''}</td>
+                            <td>${getFormatDateTime(trxInfo.Timestamp)}</td>
                         </tr>
                     `
                 } 
@@ -122,6 +122,19 @@
             stFilterFlag = !stFilterFlag;
             document.querySelector('#stFilter').innerText = stFilterFlag ? '의심거래만 보기' : '모두 보기';
         } 
+
+        function getFormatDateTime(datetimeString) {
+            const year = datetimeString.substring(0, 4);
+            const month = datetimeString.substring(4, 6);
+            const day = datetimeString.substring(6, 8);
+            const hours = datetimeString.substring(8, 10);
+            const minutes = datetimeString.substring(10, 12);
+            const seconds = datetimeString.substring(12, 14);
+
+            const formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+            
+            return formattedDateTime;
+        }
 
         /* API 호출부 */
         async function selectTrxList() {
