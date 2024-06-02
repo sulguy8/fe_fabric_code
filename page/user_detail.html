@@ -311,13 +311,13 @@
                     <tr onclick='movePage("${TxId}")'>
                         <td>${cnt++}</td>
                         <td>${trxInfo.TxId}</td>
-                        <td>${trxInfo.Amount}</td>
+                        <td>${trxInfo.Amount.toLocaleString()}</td>
                         <td>${trxInfo.Sender}</td>
                         <td>${trxInfo.Receiver}</td>
                         <td>${trxInfo.IsSt}</td>
-                        <td>${trxInfo.StCode || ''}</td>
-                        <td>${trxInfo.StMsg || ''}</td>
-                        <td>${trxInfo.StSvrt || ''}</td>
+                        <td>${trxInfo.StCode || '-'}</td>
+                        <td>${trxInfo.StMsg || '-'}</td>
+                        <td>${trxInfo.StSvrt || '-'}</td>
                         <td>${getFormatDateTime(trxInfo.Timestamp)}</td>
                     </tr>
                 `
