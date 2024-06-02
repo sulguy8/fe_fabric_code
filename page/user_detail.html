@@ -384,25 +384,31 @@
             });
         }
 
-        function updateUser() {
-            let userInfo = {
-                address: document.querySelector('#mUserAddr').innerText,
-                owner: document.querySelector('#mUserOwner').innerText,
-                age: document.querySelector('#mUserAge').value, 
-                gender: document.querySelectorAll("[name=mUserGender]:checked")[0].value,
-                job: document.querySelector('#mUserJob').value,
-                status: document.querySelector('#mUserStatus').value,
-                balance: parseInt(document.querySelector('#mUserBalance').value),
-                createDt: document.querySelector('#mUserCreateDt').innerText,
-                updateDt: getCurrentFormattedDate(),
-            }
-
-            localStorage.setItem('User', JSON.stringify(
-                selectUserList().reduce((acc, cur) => {
-                    cur.address === userId ? acc.push(userInfo) : acc.push(cur);
-                    return acc;                
-                }, []))
-            );
+        async function updateUser() {
+            await fetch('http://localhost:3000/updateUser', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    address: document.querySelector('#mUserAddr').innerText,
+                    owner: document.querySelector('#mUserOwner').innerText,
+                    age: document.querySelector('#mUserAge').value, 
+                    gender: document.querySelectorAll("[name=mUserGender]:checked")[0].value,
+                    job: document.querySelector('#mUserJob').value,
+                    status: document.querySelector('#mUserStatus').value,
+                    balance: parseInt(document.querySelector('#mUserBalance').value),
+                    createDt: document.querySelector('#mUserCreateDt').innerText,
+                    updateDt: getCurrentFormattedDate(),
+                })
+            })
+            .then(response => response.text())
+            .then(result => {
+                console.log('Success:', result); 
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         }
 
         async function selectTrxList() {
