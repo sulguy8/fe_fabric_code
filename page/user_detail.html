@@ -229,7 +229,7 @@
                     </tr>
                 </table>
                 <div style="float: right;">
-                    <button onclick="insertTrx()">거래 실행</button>
+                    <button onclick="insertTrx(); init()">거래 실행</button>
                     <button onclick="init()">취소</button>
                 </div>
             </form>
@@ -450,8 +450,8 @@
                     body: JSON.stringify({
                         txId: generateHash(),
                         amount: parseInt(document.querySelector('#trxAmount').value),
-                        sender: '0x1',
-                        receiver: '0x2',
+                        sender: document.querySelector('#trxSender').innerText,
+                        receiver: document.querySelector('#trxReceiver').value,
                         isSt: false,
                         stCode: '',
                         stMsg: '',
