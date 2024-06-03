@@ -570,7 +570,7 @@
                     switch(valInfo.StCode) {
                         case 0 :
                             await updateUserBalance(userId, amount, 'sender');
-                            await updateUserBalance(document.querySelector('#trxReceiver').value, amount, 'receiver')
+                            // await updateUserBalance(document.querySelector('#trxReceiver').value, amount, 'receiver')
                             setValInfo(valInfo, 'success');
                             break;
                         case 1 :
