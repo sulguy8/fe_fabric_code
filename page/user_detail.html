@@ -304,9 +304,7 @@
                         <th>Timestamp</th>
                     </tr>    
                 `;
-            for(let trxInfo of await selectTrxList().then(res => {
-                return res.sort((a, b) => new Date(b.Timestamp) - new Date(a.Timestamp))
-            })) {
+            for(let trxInfo of await selectTrxList()) {
                 let TxId = trxInfo.TxId;
                 html += 
                 `
