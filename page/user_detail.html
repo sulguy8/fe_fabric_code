@@ -328,8 +328,8 @@
         } 
 
         function setTrxInfo(userInfo) {
-            document.querySelector('#trxSender').innerText = userInfo.address;
-            document.querySelector('#trxAmount').placeholder = userInfo.balance.toLocaleString();
+            document.querySelector('#trxSender').innerText = userInfo.Address;
+            document.querySelector('#trxAmount').placeholder = userInfo.Balance.toLocaleString();
         }
 
         function getFormatDateTime(datetimeString) {
