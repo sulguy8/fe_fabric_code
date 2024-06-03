@@ -514,7 +514,7 @@
                     Gender: userInfo.Gender,
                     Job: userInfo.Job,
                     Status: userInfo.Status,
-                    Balance: balance,
+                    Balance: (parseInt(userInfo.Balance) - parseInt(balance)).toString(),
                 })
             })
             .then(response => response.text())
