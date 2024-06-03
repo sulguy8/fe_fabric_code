@@ -387,9 +387,9 @@
             document.querySelector('#valStMsg').innerText = 
                 JSON.stringify(stRules.reduce((acc, cur) => {
                     if(cur.StCode === valInfo.StCode) {
-                        acc = cur;
+                        acc = cur.StMsg;
                     }
-                    return acc.StMsg;
+                    return acc;
                 }, ""));
             valInfo.StMsg;
             document.querySelector('#valStSvrt').innerText = valInfo.StSvrt;
