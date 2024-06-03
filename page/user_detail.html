@@ -442,7 +442,7 @@
                     body: JSON.stringify({
                         sender: userId,
                         receiver: document.querySelector('#trxReceiver').value,
-                        amount: parseInt(document.querySelector('#trxAmount').value),
+                        amount: parseInt(document.querySelector('#trxAmount').value).toString(),
                     })
                 })
                 .then(response => response.text())
