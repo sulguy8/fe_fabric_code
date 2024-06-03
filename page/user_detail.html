@@ -475,7 +475,7 @@
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: userInfo || JSON.stringify({
+                body: JSON.stringify( userInfo || {
                     Address: userId,
                     Owner: document.querySelector('#mUserOwner').innerText,
                     Age: document.querySelector('#mUserAge').value, 
@@ -483,7 +483,7 @@
                     Job: document.querySelector('#mUserJob').value,
                     Status: document.querySelector('#mUserStatus').value,
                     Balance: parseInt(document.querySelector('#mUserBalance').value).toString(),
-                })
+                }),
             })
             .then(response => response.text())
             .then(result => {
