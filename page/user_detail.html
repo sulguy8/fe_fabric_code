@@ -311,7 +311,11 @@
             document.querySelector('#userJob').innerText = userInfo['Job'];
             document.querySelector('#mUserJob').value = userInfo['Job'];
 
-            document.querySelector('#userStatus').innerText = userInfo['Status'];
+            document.querySelector('#userStatus').innerText = {
+                '0' : '정상',
+                '1' : '휴면',
+                '2' : '요주의인물',
+            }[userInfo['Status']];
             document.querySelector('#mUserStatus').value = userInfo['Status'];
 
             document.querySelector('#userBalance').innerText = userInfo['Balance'].toLocaleString();
