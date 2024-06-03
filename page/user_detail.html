@@ -311,7 +311,7 @@
                     <tr onclick='movePage("${TxId}")'>
                         <td>${cnt++}</td>
                         <td>${trxInfo.TxId}</td>
-                        <td>${trxInfo.Amount.toLocaleString()}</td>
+                        <td>${parseInt(trxInfo.Amount).toLocaleString()}</td>
                         <td>${trxInfo.Sender}</td>
                         <td>${trxInfo.Receiver}</td>
                         <td>${trxInfo.IsSt}</td>
@@ -442,7 +442,7 @@
                     body: JSON.stringify({
                         sender: userId,
                         receiver: document.querySelector('#trxReceiver').value,
-                        amount: parseInt(document.querySelector('#trxAmount').value).toString(),
+                        amount: parseInt(document.querySelector('#trxAmount').value),
                     })
                 })
                 .then(response => response.text())
