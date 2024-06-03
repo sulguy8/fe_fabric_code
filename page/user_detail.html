@@ -476,15 +476,13 @@
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    address: userId,
-                    owner: document.querySelector('#mUserOwner').innerText,
-                    age: document.querySelector('#mUserAge').value, 
-                    gender: document.querySelectorAll("[name=mUserGender]:checked")[0].value,
-                    job: document.querySelector('#mUserJob').value,
-                    status: document.querySelector('#mUserStatus').value,
-                    balance: parseInt(document.querySelector('#mUserBalance').value),
-                    createDt: document.querySelector('#mUserCreateDt').innerText,
-                    updateDt: getCurrentFormattedDate(),
+                    Address: userId,
+                    Owner: document.querySelector('#mUserOwner').innerText,
+                    Age: document.querySelector('#mUserAge').value, 
+                    Gender: document.querySelectorAll("[name=mUserGender]:checked")[0].value,
+                    Job: document.querySelector('#mUserJob').value,
+                    Status: document.querySelector('#mUserStatus').value,
+                    Balance: parseInt(document.querySelector('#mUserBalance').value),
                 })
             })
             .then(response => response.text())
