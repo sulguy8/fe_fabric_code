@@ -91,7 +91,12 @@
                         <th>UpdateDt</th>
                     </tr>    
                 `;
-            for(let userInfo of await selectUserList()) {
+            let trxList = await selectTrxList().then(res => {
+                return res.sort(function(a, b) {
+                    return parseInt(b.Timestamp) - parseInt(a.Timestamp);
+                });
+            });
+            for(let userInfo of trxList) {
                 let address = userInfo.Address;
                 html += 
                 `
