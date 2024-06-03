@@ -478,7 +478,7 @@
                 body: JSON.stringify({
                     Address: userId,
                     Owner: document.querySelector('#mUserOwner').innerText,
-                    Age: document.querySelector('#mUserAge').value, 
+                    Age: parseInt(document.querySelector('#mUserAge').value), 
                     Gender: document.querySelectorAll("[name=mUserGender]:checked")[0].value,
                     Job: document.querySelector('#mUserJob').value,
                     Status: document.querySelector('#mUserStatus').value,
