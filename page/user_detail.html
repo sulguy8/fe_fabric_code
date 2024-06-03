@@ -469,13 +469,13 @@
             });
         }
 
-        async function updateUser() {
+        async function updateUser(userInfo) {
             await fetch('http://localhost:3000/updateUser', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
+                body: userInfo || JSON.stringify({
                     Address: userId,
                     Owner: document.querySelector('#mUserOwner').innerText,
                     Age: document.querySelector('#mUserAge').value, 
