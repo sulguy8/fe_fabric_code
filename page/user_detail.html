@@ -352,7 +352,10 @@
                         <th>Timestamp</th>
                     </tr>    
                 `;
-            for(let trxInfo of await selectTrxList()) {
+            let trxList = await selectTrxList().sort(function(a, b) {
+                return parseInt(b.Timestamp) - parseInt(a.Timestamp);
+            });
+            for(let trxInfo of trxList) {
                 let TxId = trxInfo.TxId;
                 html += 
                 `
