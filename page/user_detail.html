@@ -500,6 +500,32 @@
             });
         }
 
+        async function updateUserBalance(address, balance) {
+            let userInfo = await selectUser(address);
+            await fetch('http://localhost:3000/updateUser', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    Address: address,
+                    Owner: userInfo.Owner,
+                    Age: userInfo.Age, 
+                    Gender: userInfo.Gender,
+                    Job: userInfo.Job,
+                    Status: userInfo.Status,
+                    Balance: balance,
+                })
+            })
+            .then(response => response.text())
+            .then(result => {
+                console.log('Success:', result); 
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
         async function selectTrxList() {
             return await fetch('http://localhost:3000/selectTrxList')
             .then(response => {
@@ -532,11 +558,13 @@
                         amount: parseInt(document.querySelector('#trxAmount').value),
                     })
                 })
-                .then(response => response.text())
-                .then(result => {
+                .then(async response => response.text())
+                .then(async result => {
                     let valInfo = JSON.parse(result);
+                    let amount = parseInt(document.querySelector('#trxAmount').value);
                     switch(valInfo.StCode) {
                         case 0 :
+                            await updateUserBalance(userId, amount);
                             setValInfo(valInfo, 'success');
                             break;
                         case 1 :
