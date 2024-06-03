@@ -369,7 +369,8 @@
         }
 
         function setValInfo(valInfo, flag) {
-            let msg = ""
+            let msg = "";
+            let stRules = JSON.parse(localStorage.getItem('stRules'));
             switch(flag) {
                 case 'success':
                     msg = "* 요청하신 거래를 원장에 정상적으로 반영하였습니다.";
@@ -383,7 +384,14 @@
             }
             document.querySelector('#valIsSt').innerText = valInfo.IsSt;
             document.querySelector('#valStCode').innerText = valInfo.StCode;
-            document.querySelector('#valStMsg').innerText = valInfo.StMsg;
+            document.querySelector('#valStMsg').innerText = 
+                stRules.reduce((acc, cur) => {
+                    if(cur.StCode === valInfo.StCode) {
+                        acc = cur;
+                    }
+                    return acc;
+                }, {});
+            valInfo.StMsg;
             document.querySelector('#valStSvrt').innerText = valInfo.StSvrt;
             document.querySelector('#valText').innerText = msg;
 
