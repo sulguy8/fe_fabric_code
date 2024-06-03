@@ -385,12 +385,12 @@
             document.querySelector('#valIsSt').innerText = valInfo.IsSt;
             document.querySelector('#valStCode').innerText = valInfo.StCode;
             document.querySelector('#valStMsg').innerText = 
-                stRules.reduce((acc, cur) => {
+                JSON.stringify(stRules.reduce((acc, cur) => {
                     if(cur.StCode === valInfo.StCode) {
                         acc = cur;
                     }
                     return acc;
-                }, {});
+                }, {}));
             valInfo.StMsg;
             document.querySelector('#valStSvrt').innerText = valInfo.StSvrt;
             document.querySelector('#valText').innerText = msg;
