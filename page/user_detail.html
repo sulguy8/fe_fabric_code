@@ -500,7 +500,7 @@
             });
         }
 
-        async function updateUserBalance(address, balance) {
+        async function updateUserBalance(address, balance, flag) {
             let userInfo = await selectUser(address);
             await fetch('http://localhost:3000/updateUser', {
                 method: 'POST',
@@ -514,7 +514,12 @@
                     Gender: userInfo.Gender,
                     Job: userInfo.Job,
                     Status: userInfo.Status,
-                    Balance: (parseInt(userInfo.Balance) - parseInt(balance)).toString(),
+                    Balance: (
+                        flag === 'sender' ? 
+                            parseInt(userInfo.Balance) - parseInt(balance)
+                            :
+                            parseInt(userInfo.Balance) + parseInt(balance)
+                    ).toString(),
                 })
             })
             .then(response => response.text())
@@ -564,7 +569,8 @@
                     let amount = parseInt(document.querySelector('#trxAmount').value);
                     switch(valInfo.StCode) {
                         case 0 :
-                            await updateUserBalance(userId, amount);
+                            await updateUserBalance(userId, amount, 'sender');
+                            await updateUserBalance(document.querySelector('#trxReceiver').value, amount, 'receiver')
                             setValInfo(valInfo, 'success');
                             break;
                         case 1 :
