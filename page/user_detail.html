@@ -533,9 +533,9 @@
                     switch(valInfo.StCode) {
                         case 0 :
                             setValInfo(valInfo, 'success');
-                            const senderInfo = await selectUser(userId);
-                            senderInfo.Balance = parseInt(senderInfo.Balance) - parseInt(document.querySelector('#trxAmount').value);
-                            await updateUser(senderInfo);
+                            // const senderInfo = await selectUser(userId);
+                            // senderInfo.Balance = parseInt(senderInfo.Balance) - parseInt(document.querySelector('#trxAmount').value);
+                            // await updateUser(senderInfo);
 
                             // const recevierInfo = await selectUser(document.querySelector('#trxReceiver').value);
                             // recevierInfo.Balance = (parseInt(recevierInfo.Balance) + parseInt(document.querySelector('#trxAmount').value)).toString();
