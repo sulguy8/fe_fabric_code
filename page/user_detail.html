@@ -310,7 +310,7 @@
             document.querySelector('#mUserBalance').value = userInfo['Balance'];
 
             let isWlf = Array.from(
-                    JSON.parse(await selectWatchList()), (target) => {
+                    await selectWatchList(), (target) => {
                     return target.owner === userInfo['Owner'];
                 }).includes(true)
             document.querySelector('#userIsWlf').innerText = isWlf;
