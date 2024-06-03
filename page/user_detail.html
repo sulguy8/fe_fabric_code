@@ -482,7 +482,7 @@
                     Gender: document.querySelectorAll("[name=mUserGender]:checked")[0].value,
                     Job: document.querySelector('#mUserJob').value,
                     Status: document.querySelector('#mUserStatus').value,
-                    Balance: parseInt(document.querySelector('#mUserBalance').value),
+                    Balance: parseInt(document.querySelector('#mUserBalance').value).toString(),
                 })
             })
             .then(response => response.text())
