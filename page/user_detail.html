@@ -389,8 +389,8 @@
                     if(cur.StCode === valInfo.StCode) {
                         acc = cur;
                     }
-                    return acc;
-                }, {}));
+                    return acc.StMsg;
+                }, ""));
             valInfo.StMsg;
             document.querySelector('#valStSvrt').innerText = valInfo.StSvrt;
             document.querySelector('#valText').innerText = msg;
