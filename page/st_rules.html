@@ -61,52 +61,42 @@
     <div class="content">
         <h1>St Rules</h1>
         <div id="table-container">
-            <table>
-                <tr>
-                    <th>StCode</th>
-                    <th>StSvrt</th>
-                    <th>거래 허용 여부</th>
-                    <th>StMsg</th>
-                </tr>
-                <tr>
-                    <td>101</td>
-                    <td>1</td>
-                    <td>경고 후 통과</td>
-                    <td>[1일] 합산 [1천만 원] 이상의 가상자산 입금 후 혹은 동시에 당일[1일] 합산 [1천만 원] 이상 가상자산 출금</td>
-                </tr>
-                <tr>
-                    <td>102</td>
-                    <td>1</td>
-                    <td>경고 후 통과</td>
-                    <td>[1일] 합산 [5회] 이상 [100만 원] 이상의 가상자산 출금</td>
-                </tr>
-                <tr>
-                    <td>105</td>
-                    <td>1</td>
-                    <td>경고 후 통과</td>
-                    <td>[1일] 합산 [10회] 이상 가상자산 입금</td>
-                </tr>
-                <tr>
-                    <td>119</td>
-                    <td>9</td>
-                    <td>경고 후 통과</td>
-                    <td>WLF 요주의인물 리스트 고객이 [1일]에 합산 [3백만 원] 이상의 가상자산을 출금하는 경우
-                    </td>
-                </tr>
-                <tr>
-                    <td>120</td>
-                    <td>9</td>
-                    <td>경고 후 통과</td>
-                    <td>[휴면계정] 고객 [휴면상태]에게 [1백만 원] 이상 가상자산 입금</td>
-                </tr>
-                <tr>
-                    <td>121</td>
-                    <td>1</td>
-                    <td>경고 후 통과</td>
-                    <td>[1일] [5백만 원] 이상 입금 후 [30분] 이내에 출금</td>
-                </tr>
-            </table>    
+            <table id="stRuleList">
+            </table>
         </div>
     </div>
+
+    <script>
+        init();
+
+        function init() {
+            setStRuleList(localStorage.getItem('stRules'))
+        }
+
+        async function setStRuleList(stRules) {
+            let html = 
+                `
+                    <tr>
+                        <th>StCode</th>
+                        <th>StSvrt</th>
+                        <th>거래 허용 여부</th>
+                        <th>StMsg</th>
+                    </tr>    
+                `;
+            for(let stRule of stRules) {
+                html += 
+                    `
+                        <tr>
+                            <td>${stRule.TxId}</td>
+                            <td>${stRule.Amount}</td>
+                            <td>${stRule.Sender}</td>
+                            <td>${stRule.Receiver}</td>
+                        </tr>
+                    `
+            }
+            document.querySelector('#stRuleList').innerHTML = html;
+        } 
+
+    </script>
 </body>
 </html>
