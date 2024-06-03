@@ -438,15 +438,9 @@
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        txId: generateHash(),
-                        amount: parseInt(document.querySelector('#trxAmount').value),
-                        sender: document.querySelector('#trxSender').innerText,
+                        sender: userId,
                         receiver: document.querySelector('#trxReceiver').value,
-                        isSt: false,
-                        stCode: '',
-                        stMsg: '',
-                        stSvrt: '',
-                        timestamp: getCurrentFormattedDate(),
+                        amount: parseInt(document.querySelector('#trxAmount').value),
                     })
                 })
                 .then(response => response.text())
