@@ -264,8 +264,16 @@
                 </table>
                 <span id="valText"></span>
                 <div style="float: right;">
-                    <button onclick="updateUser()">거래 실행</button>
-                    <button onclick="init()">취소</button>
+                    <span id="valSuccess">
+                        <button onclick="init()">확인</button>
+                    </span>
+                    <span id="valConfirm">
+                        <button onclick="updateUser()">거래 실행</button>
+                        <button onclick="init()">거래 취소</button>
+                    </span>
+                    <span id="valFail">
+                        <button onclick="init()">확인</button>
+                    </span>
                 </div>
             </form>
         </dialog>
@@ -369,16 +377,23 @@
         }
 
         function setValInfo(valInfo, flag) {
+            document.querySelector('#valSuccess').hidden = true;
+            document.querySelector('#valConfirm').hidden = true;
+            document.querySelector('#valFail').hidden = true;
+
             let msg = "";
             let stRules = JSON.parse(localStorage.getItem('stRules'));
             switch(flag) {
                 case 'success':
                     msg = "* 요청하신 거래를 원장에 정상적으로 반영하였습니다.";
+                    document.querySelector('#valSuccess').hidden = false;
                     break;
                 case 'confrim':
+                    document.querySelector('#valConfirm').hidden = false;
                     msg = "CODE" + valInfo.StCode + "에 의해 의심거래로 판단됩니다. 거래를 실행하시겠습니까?";
                     break;
                 case 'fail':
+                    document.querySelector('#valFail').hidden = false;
                     msg = "CODE" + valInfo.StCode + "에 의해 의심거래로 판단되며, 거래를 실행할 수 없습니다.";
                     break;
             }
