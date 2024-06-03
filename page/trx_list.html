@@ -98,7 +98,12 @@
                         <th>Timestamp</th>
                     </tr>    
                 `;
-            for(let trxInfo of await selectTrxList()) {
+            let trxList = await selectTrxList().then(res => {
+                return res.sort(function(a, b) {
+                    return parseInt(b.Timestamp) - parseInt(a.Timestamp);
+                });
+            });
+            for(let trxInfo of trxList) {
                 if((stFilterFlag && trxInfo.IsSt) || !stFilterFlag) {
                     html += 
                     `
