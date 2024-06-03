@@ -281,11 +281,11 @@
 
         async function init() {
             const userInfo = await selectUser(userId);
-            setUserInfo(userInfo);
-            setTrxList(userInfo);
+            await setUserInfo(userInfo);
+            await setTrxList(userInfo);
         }
 
-        function setUserInfo(userInfo) {
+        async function setUserInfo(userInfo) {
             document.querySelector('#userAddr').innerText = userInfo['Address'];
             document.querySelector('#mUserAddr').innerText = userInfo['Address'];
 
@@ -310,7 +310,7 @@
             document.querySelector('#mUserBalance').value = userInfo['Balance'];
 
             let isWlf = Array.from(
-                    JSON.parse(localStorage.getItem('WatchList')), (target) => {
+                    JSON.parse(await selectWatchList()), (target) => {
                     return target.owner === userInfo['Owner'];
                 }).includes(true)
             document.querySelector('#userIsWlf').innerText = isWlf;
@@ -525,6 +525,20 @@
                     console.error('Error:', error);
                 });
             }
+        }
+
+        async function selectWatchList() {
+            return await fetch('http://localhost:3000/selectWatchList')
+            .then(response => {
+                if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();    
+            }).then(data => {
+                return data;
+            }).catch(error => {
+                console.error('There has been a problem with your fetch operation:', error);
+            });
         }
     </script>
 </body>
