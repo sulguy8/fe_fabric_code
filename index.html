@@ -10,7 +10,7 @@
     <script>
     if(!localStorage.getItem('initFlag')) {
         localStorage.setItem('initFlag', true);
-        localStorage.setItem('stRules', [
+        localStorage.setItem('stRules', JSON.stringify([
             {
                 StCode:'101',
                 StSvrt:'1',
@@ -47,7 +47,7 @@
                 StYn:'경고 후 통과',
                 StMsg:'[1일] [5백만 원] 이상 입금 후 [30분] 이내에 출금',
             },
-        ]);
+        ]));
     }
     
     location.href = './page/user_list.html';

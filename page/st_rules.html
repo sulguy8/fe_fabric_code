@@ -70,7 +70,7 @@
         init();
 
         function init() {
-            setStRuleList(localStorage.getItem('stRules'))
+            setStRuleList(JSON.parse(localStorage.getItem('stRules')));
         }
 
         async function setStRuleList(stRules) {
