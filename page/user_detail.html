@@ -469,13 +469,13 @@
             });
         }
 
-        async function updateUser(userInfo) {
+        async function updateUser() {
             await fetch('http://localhost:3000/updateUser', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify( userInfo || {
+                body: JSON.stringify({
                     Address: userId,
                     Owner: document.querySelector('#mUserOwner').innerText,
                     Age: document.querySelector('#mUserAge').value, 
@@ -483,12 +483,12 @@
                     Job: document.querySelector('#mUserJob').value,
                     Status: document.querySelector('#mUserStatus').value,
                     Balance: parseInt(document.querySelector('#mUserBalance').value).toString(),
-                }),
+                })
             })
             .then(response => response.text())
             .then(result => {
                 console.log('Success:', result); 
-                // init();
+                init();
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -528,18 +528,11 @@
                     })
                 })
                 .then(response => response.text())
-                .then(async result => {
+                .then(result => {
                     let valInfo = JSON.parse(result);
                     switch(valInfo.StCode) {
                         case 0 :
                             setValInfo(valInfo, 'success');
-                            // const senderInfo = await selectUser(userId);
-                            // senderInfo.Balance = parseInt(senderInfo.Balance) - parseInt(document.querySelector('#trxAmount').value);
-                            // await updateUser(senderInfo);
-
-                            // const recevierInfo = await selectUser(document.querySelector('#trxReceiver').value);
-                            // recevierInfo.Balance = (parseInt(recevierInfo.Balance) + parseInt(document.querySelector('#trxAmount').value)).toString();
-                            // await updateUser(recevierInfo);
                             break;
                         case 1 :
                             setValInfo(valInfo, 'confirm');
