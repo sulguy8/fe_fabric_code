@@ -318,7 +318,7 @@
             }[userInfo['Status']];
             document.querySelector('#mUserStatus').value = userInfo['Status'];
 
-            document.querySelector('#userBalance').innerText = userInfo['Balance'].toLocaleString();
+            document.querySelector('#userBalance').innerText = parseInt(userInfo['Balance']).toLocaleString();
             document.querySelector('#mUserBalance').value = userInfo['Balance'];
 
             let isWlf = Array.from(
