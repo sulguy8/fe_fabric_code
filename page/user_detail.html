@@ -195,7 +195,7 @@
                     </tr>
                 </table>
                 <div style="float: right;">
-                    <button onclick="updateUser(); init()">수정반영</button>
+                    <button onclick="updateUser()">수정반영</button>
                     <button onclick="init()">취소</button>
                 </div>
             </form>
@@ -229,7 +229,7 @@
                     </tr>
                 </table>
                 <div style="float: right;">
-                    <button onclick="insertTrx(); init()">거래 실행</button>
+                    <button onclick="insertTrx()">거래 실행</button>
                     <button onclick="init()">취소</button>
                 </div>
             </form>
@@ -308,7 +308,7 @@
                 let TxId = trxInfo.TxId;
                 html += 
                 `
-                    <tr onclick='movePage("${TxId}")'>
+                    <tr>
                         <td>${cnt++}</td>
                         <td>${trxInfo.TxId}</td>
                         <td>${parseInt(trxInfo.Amount).toLocaleString()}</td>
@@ -407,6 +407,7 @@
             .then(response => response.text())
             .then(result => {
                 console.log('Success:', result); 
+                init();
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -447,7 +448,8 @@
                 })
                 .then(response => response.text())
                 .then(result => {
-                    console.log('Success:', result); 
+                    console.log('Success:', result);
+                    init();
                 })
                 .catch(error => {
                     console.error('Error:', error);
