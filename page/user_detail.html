@@ -275,6 +275,7 @@
         const userId = new URL(window.location.href).searchParams.get('userId');
         const userModal = document.querySelector(".userModal");
         const trxModal = document.querySelector(".trxModal");
+        const valModal = document.querySelector(".valModal");
 
         init();
 
@@ -385,6 +386,8 @@
             document.querySelector('#valStMsg').innerText = valInfo.StMsg;
             document.querySelector('#valStSvrt').innerText = valInfo.StSvrt;
             document.querySelector('#valText').innerText = msg;
+
+            valModal.showModal();
 
             init();
         }
