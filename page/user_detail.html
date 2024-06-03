@@ -448,7 +448,13 @@
                 })
                 .then(response => response.text())
                 .then(result => {
-                    console.log('Success:', result);
+                    switch(JSON.parse(result).StCode) {
+                        case '0' :
+                            console.log('ttt');
+                            break;
+                        default :
+                            break;
+                    }
                     init();
                 })
                 .catch(error => {
