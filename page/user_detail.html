@@ -236,6 +236,41 @@
         </dialog>
     </div>
 
+    <div>
+        <dialog class="valModal">
+            <h3>Transaction result</h3>
+            <form method="dialog">
+                <table id="valInfo">
+                    <tr>
+                        <th>Field</th>
+                        <th>Content</th>
+                    </tr>
+                    <tr style="background-color: #f2f2f2;">
+                        <td>IsSt</td>
+                        <td id="valIsSt"></td>
+                    </tr>
+                    <tr>
+                        <td>StCode</td>
+                        <td id="valStCode"></td>
+                    </tr>
+                    <tr>
+                        <td>StMsg</td>
+                        <td id="valStMsg"></td>
+                    </tr>
+                    <tr>
+                        <td>StSvrt</td>
+                        <td id="valStSvrt"></td>
+                    </tr>
+                </table>
+                <span id="valText"></span>
+                <div style="float: right;">
+                    <button onclick="updateUser()">거래 실행</button>
+                    <button onclick="init()">취소</button>
+                </div>
+            </form>
+        </dialog>
+    </div>
+
     <script>
         const userId = new URL(window.location.href).searchParams.get('userId');
         const userModal = document.querySelector(".userModal");
@@ -332,6 +367,28 @@
             document.querySelector('#trxAmount').placeholder = userInfo.Balance.toLocaleString();
         }
 
+        function setValInfo(valInfo, flag) {
+            let msg = ""
+            switch(flag) {
+                case 'success':
+                    msg = "* 요청하신 거래를 원장에 정상적으로 반영하였습니다.";
+                    break;
+                case 'confrim':
+                    msg = "CODE" + valInfo.StCode + "에 의해 의심거래로 판단됩니다. 거래를 실행하시겠습니까?";
+                    break;
+                case 'fail':
+                    msg = "CODE" + valInfo.StCode + "에 의해 의심거래로 판단되며, 거래를 실행할 수 없습니다.";
+                    break;
+            }
+            document.querySelector('#valIsSt').innerText = valInfo.IsSt;
+            document.querySelector('#valStCode').innerText = valInfo.StCode;
+            document.querySelector('#valStMsg').innerText = valInfo.StMsg;
+            document.querySelector('#valStSvrt').innerText = valInfo.StSvrt;
+            document.querySelector('#valText').innerText = msg;
+
+            init();
+        }
+
         function getFormatDateTime(datetimeString) {
             const year = datetimeString.substring(0, 4);
             const month = datetimeString.substring(4, 6);
@@ -393,7 +450,7 @@
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    address: document.querySelector('#mUserAddr').innerText,
+                    address: userId,
                     owner: document.querySelector('#mUserOwner').innerText,
                     age: document.querySelector('#mUserAge').value, 
                     gender: document.querySelectorAll("[name=mUserGender]:checked")[0].value,
@@ -448,14 +505,18 @@
                 })
                 .then(response => response.text())
                 .then(result => {
-                    switch(JSON.parse(result).StCode) {
+                    let valInfo = JSON.parse(result);
+                    switch(valInfo.StCode) {
                         case 0 :
-                            console.log('ttt');
+                            setValInfo(valInfo, 'success');
+                            break;
+                        case 1 :
+                            setValInfo(valInfo, 'confirm');
                             break;
                         default :
+                            setValInfo(valInfo, 'fail');
                             break;
                     }
-                    init();
                 })
                 .catch(error => {
                     console.error('Error:', error);
