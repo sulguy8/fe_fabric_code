@@ -442,10 +442,6 @@
             return `${year}${month}${day}${hours}${minutes}${seconds}`;
         }
 
-        function generateHash() {
-            return CryptoJS.MD5(userId + Date.now()).toString().substring(0, 16);
-        }
-
         function isValid() {
             return true;
         }
@@ -532,11 +528,18 @@
                     })
                 })
                 .then(response => response.text())
-                .then(result => {
+                .then(async result => {
                     let valInfo = JSON.parse(result);
                     switch(valInfo.StCode) {
                         case 0 :
                             setValInfo(valInfo, 'success');
+                            const senderInfo = await selectUser(userId);
+                            senderInfo.Balance = (parseInt(senderInfo.Balance) - parseInt(document.querySelector('#trxAmount').value)).toString();
+                            await updateUser(senderInfo);
+
+                            const recevierInfo = await selectUser(document.querySelector('#trxReceiver').value);
+                            recevierInfo.Balance = (parseInt(recevierInfo.Balance) + parseInt(document.querySelector('#trxAmount').value)).toString();
+                            await updateUser(recevierInfo);
                             break;
                         case 1 :
                             setValInfo(valInfo, 'confirm');
