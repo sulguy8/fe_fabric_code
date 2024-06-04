@@ -449,7 +449,7 @@
             document.querySelector('#valStCode').innerText = valInfo.StCode;
             document.querySelector('#valStMsg').innerText = 
                 stRules.reduce((acc, cur) => {
-                    if(cur.StCode === valInfo.StCode) {
+                    if(cur.StCode.toString() === valInfo.StCode.toString()) {
                         acc = cur.StMsg;
                     }
                     return acc;
