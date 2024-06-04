@@ -107,7 +107,7 @@
                                 '1' : '휴면',
                                 '2' : '요주의인물',
                             }[userInfo['Status']]}</td>
-                        <td>${userInfo.Balance.toLocaleString()}</td>
+                        <td>${parseInt(userInfo.Balance).toLocaleString()}</td>
                         <td>${getFormatDateTime(userInfo.CreateDt)}</td>
                         <td>${getFormatDateTime(userInfo.UpdateDt)}</td>
                     </tr>

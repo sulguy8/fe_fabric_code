@@ -418,9 +418,9 @@
                     }
                     return acc;
                 }, ""));
-            valInfo.StMsg;
-            document.querySelector('#valStSvrt').innerText = valInfo.StSvrt;
-            document.querySelector('#valText').innerText = msg;
+            document.querySelector('#valMsg').innerText = valInfo.StMsg || '';
+            document.querySelector('#valStSvrt').innerText = valInfo.StSvrt || '';
+            document.querySelector('#valText').innerText = msg || ''; 
 
             valModal.showModal();
         }
