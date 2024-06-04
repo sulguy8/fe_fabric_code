@@ -297,7 +297,7 @@
                         <button onclick="init()">확인</button>
                     </span>
                     <span id="valConfirm">
-                        <button onclick="updateUser()">거래 실행</button>
+                        <button onclick="updateBalance()">거래 실행</button>
                         <button onclick="init()">거래 취소</button>
                     </span>
                     <span id="valFail">
@@ -414,7 +414,14 @@
             document.querySelector('#trxAmount').placeholder = userInfo.Balance.toLocaleString();
         }
 
+        let gTrxInfo;
+        async function updateBalance() {
+            await updateUserBalance(gTrxInfo.sender, gTrxInfo.amount, 'sender');
+            await updateUserBalance(gTrxInfo.receiver, gTrxInfo.amount, 'receiver')
+        }
+        
         async function setValInfo(valInfo, trxInfo, flag) {
+            gTrxInfo = trxInfo;
             document.querySelector('#valSuccess').hidden = true;
             document.querySelector('#valConfirm').hidden = true;
             document.querySelector('#valFail').hidden = true;
@@ -422,14 +429,12 @@
             let msg = "";
             let stRules = JSON.parse(localStorage.getItem('stRules'));
             switch(flag) {
-                case 'success':
-                    await updateUserBalance(trxInfo.sender, trxInfo.amount, 'sender');
-                    await updateUserBalance(trxInfo.receiver, trxInfo.amount, 'receiver')
-
+                case 'confirm':
+                    await updateBalance();
                     msg = "* 요청하신 거래를 원장에 정상적으로 반영하였습니다.";
                     document.querySelector('#valSuccess').hidden = false;
                     break;
-                case 'confrim':
+                case 'success':
                     document.querySelector('#valConfirm').hidden = false;
                     msg = "CODE" + valInfo.StCode + "에 의해 의심거래로 판단됩니다. 거래를 실행하시겠습니까?";
                     break;
