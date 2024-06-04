@@ -95,6 +95,7 @@
                         <th>StCode</th>
                         <th>StMsg</th>
                         <th>StSvrt</th>
+                        <th>IsExecuted</th>
                         <th>Timestamp</th>
                     </tr>    
                 `;
@@ -117,6 +118,7 @@
                             <td>${trxInfo.StCode || '-'}</td>
                             <td>${trxInfo.StMsg || '-'}</td>
                             <td>${trxInfo.StSvrt || '-'}</td>
+                            <td>${trxInfo.StSvrt}</td>
                             <td>${getFormatDateTime(trxInfo.Timestamp)}</td>
                         </tr>
                     `
