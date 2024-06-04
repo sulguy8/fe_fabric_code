@@ -385,7 +385,7 @@
             document.querySelector('#trxAmount').placeholder = userInfo.Balance.toLocaleString();
         }
 
-        function setValInfo(valInfo, flag) {
+        async function setValInfo(valInfo, trxInfo, flag) {
             document.querySelector('#valSuccess').hidden = true;
             document.querySelector('#valConfirm').hidden = true;
             document.querySelector('#valFail').hidden = true;
@@ -394,6 +394,9 @@
             let stRules = JSON.parse(localStorage.getItem('stRules'));
             switch(flag) {
                 case 'success':
+                    await updateUserBalance(trxInfo.sender, trxInfo.amount, 'sender');
+                    await updateUserBalance(trxInfo.receiver, trxInfo.amount, 'receiver')
+
                     msg = "* 요청하신 거래를 원장에 정상적으로 반영하였습니다.";
                     document.querySelector('#valSuccess').hidden = false;
                     break;
@@ -420,8 +423,6 @@
             document.querySelector('#valText').innerText = msg;
 
             valModal.showModal();
-
-            init();
         }
 
         function getFormatDateTime(datetimeString) {
@@ -552,16 +553,17 @@
 
         async function insertTrx() {
             if(isValid()) {
+                let trxInfo = {
+                    sender: userId,
+                    receiver: document.querySelector('#trxReceiver').value,
+                    amount: parseInt(document.querySelector('#trxAmount').value),
+                };
                 await fetch('http://localhost:3000/insertTrx', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({
-                        sender: userId,
-                        receiver: document.querySelector('#trxReceiver').value,
-                        amount: parseInt(document.querySelector('#trxAmount').value),
-                    })
+                    body: JSON.stringify(trxInfo)
                 })
                 .then(async response => response.text())
                 .then(async result => {
@@ -569,15 +571,13 @@
                     let amount = parseInt(document.querySelector('#trxAmount').value);
                     switch(valInfo.StCode) {
                         case 0 :
-                            // await updateUserBalance(userId, amount, 'sender');
-                            // await updateUserBalance(document.querySelector('#trxReceiver').value, amount, 'receiver')
-                            setValInfo(valInfo, 'success');
+                            await setValInfo(valInfo, trxInfo, 'success');
                             break;
                         case 1 :
-                            setValInfo(valInfo, 'confirm');
+                            await setValInfo(valInfo, trxInfo, 'confirm');
                             break;
                         default :
-                            setValInfo(valInfo, 'fail');
+                            await setValInfo(valInfo, trxInfo, 'fail');
                             break;
                     }
                 })
