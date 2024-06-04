@@ -488,7 +488,12 @@
             spinnerContainer.style.display = flag ? 'flex' : 'none';
         }
 
-        function isValid() {
+        async function isValid(trxInfo) {
+            const userInfo = await selectUser(userId);
+            if(trxInfo.amount > userInfo.Balance) {
+                alert("test");
+                return false;
+            }
             return true;
         }
         
@@ -602,13 +607,13 @@
         }
 
         async function insertTrx() {
-            if(isValid()) {
+            let trxInfo = {
+                sender: userId,
+                receiver: document.querySelector('#trxReceiver').value,
+                amount: parseInt(document.querySelector('#trxAmount').value),
+            };
+            if(isValid(trxInfo)) {
                 simulateLoading(true);
-                let trxInfo = {
-                    sender: userId,
-                    receiver: document.querySelector('#trxReceiver').value,
-                    amount: parseInt(document.querySelector('#trxAmount').value),
-                };
                 await fetch('http://localhost:3000/insertTrx', {
                     method: 'POST',
                     headers: {
