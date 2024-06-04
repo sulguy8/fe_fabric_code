@@ -118,7 +118,7 @@
                             <td>${trxInfo.StCode || '-'}</td>
                             <td>${trxInfo.StMsg || '-'}</td>
                             <td>${trxInfo.StSvrt || '-'}</td>
-                            <td>${trxInfo.IsExecuted}</td>
+                            <td>${trxInfo.IsExecuted || false}</td>
                             <td>${getFormatDateTime(trxInfo.Timestamp)}</td>
                         </tr>
                     `
