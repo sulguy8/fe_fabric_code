@@ -454,7 +454,13 @@
                     }
                     return acc;
                 }, "") || '-';
-            document.querySelector('#valStSvrt').innerText = valInfo.StSvrt || '-';
+            document.querySelector('#valStSvrt').innerText = 
+                stRules.reduce((acc, cur) => {
+                    if(cur.StSvrt.toString() === valInfo.StSvrt.toString()) {
+                        acc = cur.StYn;
+                    }
+                    return acc;
+                }, "") || '-';
             document.querySelector('#valText').innerText = msg || '-'; 
 
             valModal.showModal();
