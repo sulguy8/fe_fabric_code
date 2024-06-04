@@ -491,7 +491,7 @@
         async function isValid(trxInfo) {
             const userInfo = await selectUser(userId);
             if(trxInfo.amount > userInfo.Balance) {
-                alert("test");
+                alert("잔액이 부족합니다.");
                 return false;
             }
             return true;
