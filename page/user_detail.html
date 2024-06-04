@@ -620,7 +620,7 @@
                 .then(async result => {
                     let valInfo = JSON.parse(result);
                     let amount = parseInt(document.querySelector('#trxAmount').value);
-                    switch(valInfo.StCode) {
+                    switch(valInfo.StSvrt) {
                         case 0 :
                             await setValInfo(valInfo, trxInfo, 'success');
                             break;
