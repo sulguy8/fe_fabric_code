@@ -431,12 +431,12 @@
             let msg = "";
             let stRules = JSON.parse(localStorage.getItem('stRules'));
             switch(flag) {
-                case 'confirm':
+                case 'success':
                     await setBalance();
                     msg = "* 요청하신 거래를 원장에 정상적으로 반영하였습니다.";
                     document.querySelector('#valSuccess').hidden = false;
                     break;
-                case 'success':
+                case 'confirm':
                     document.querySelector('#valConfirm').hidden = false;
                     msg = "CODE" + valInfo.StCode + "에 의해 의심거래로 판단됩니다. 거래를 실행하시겠습니까?";
                     break;
