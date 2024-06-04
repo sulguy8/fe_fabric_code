@@ -297,7 +297,7 @@
                         <button onclick="init()">확인</button>
                     </span>
                     <span id="valConfirm">
-                        <button onclick="updateBalance()">거래 실행</button>
+                        <button onclick="setBalance()">거래 실행</button>
                         <button onclick="init()">거래 취소</button>
                     </span>
                     <span id="valFail">
@@ -415,9 +415,11 @@
         }
 
         let gTrxInfo;
-        async function updateBalance() {
+        async function setBalance() {
             await updateUserBalance(gTrxInfo.sender, gTrxInfo.amount, 'sender');
-            await updateUserBalance(gTrxInfo.receiver, gTrxInfo.amount, 'receiver')
+            await updateUserBalance(gTrxInfo.receiver, gTrxInfo.amount, 'receiver');
+
+            init();
         }
         
         async function setValInfo(valInfo, trxInfo, flag) {
@@ -430,7 +432,7 @@
             let stRules = JSON.parse(localStorage.getItem('stRules'));
             switch(flag) {
                 case 'confirm':
-                    await updateBalance();
+                    await setBalance();
                     msg = "* 요청하신 거래를 원장에 정상적으로 반영하였습니다.";
                     document.querySelector('#valSuccess').hidden = false;
                     break;
