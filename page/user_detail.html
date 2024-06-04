@@ -48,9 +48,22 @@
             background-color: #f2f2f2;
             color: #333;
         }
-    </style>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+        .spinner {
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid #3498db;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 2s linear infinite;
+            display: none; /* Initially hidden */
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 </head>
     <div class="navbar">
         <a href="./user_list.html">UserList</a>
@@ -58,6 +71,8 @@
         <a href="./st_rules.html">ST Rules</a>
         <a href="./watch_list.html">Watch List</a>
     </div>
+
+    <div id="spinner" class="spinner"></div>
 
     <div class="content">
         <button onclick="goBack()">Back to user list</button>
@@ -286,6 +301,15 @@
         const valModal = document.querySelector(".valModal");
 
         init();
+
+        function simulateLoading() {
+            const spinner = document.getElementById('spinner');
+            spinner.style.display = 'block';
+
+            setTimeout(() => {
+                spinner.style.display = 'none';
+            }, 3000);
+        }
 
         async function init() {
             const userInfo = await selectUser(userId);
