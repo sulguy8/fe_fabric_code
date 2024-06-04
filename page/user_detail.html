@@ -316,14 +316,6 @@
 
         init();
 
-        function simulateLoading() {
-            const spinnerContainer = document.getElementById('spinner-container');
-            spinnerContainer.style.display = 'flex';
-            setTimeout(() => {
-                spinnerContainer.style.display = 'none';
-            }, 3000);
-        }
-
         async function init() {
             const userInfo = await selectUser(userId);
             await setUserInfo(userInfo);
@@ -484,6 +476,11 @@
             return `${year}${month}${day}${hours}${minutes}${seconds}`;
         }
 
+        function simulateLoading(flag) {
+            const spinnerContainer = document.getElementById('spinner-container');
+            spinnerContainer.style.display = flag ? 'flex' : 'none';
+        }
+
         function isValid() {
             return true;
         }
@@ -493,11 +490,8 @@
         }
 
         /* API 호출부 */
-        function selectUserList() {
-            return JSON.parse(localStorage.getItem('User'));
-        }
-
         async function selectUser(addr) {
+            simulateLoading(true);
             return await fetch('http://localhost:3000/selectUser?userId=' + addr)
             .then(response => {
                 if (!response.ok) {
@@ -508,10 +502,13 @@
                 return data;
             }).catch(error => {
                 console.error('There has been a problem with your fetch operation:', error);
+            }).finally(() => {
+                simulateLoading(false);
             });
         }
 
         async function updateUser() {
+            simulateLoading(true);
             await fetch('http://localhost:3000/updateUser', {
                 method: 'POST',
                 headers: {
@@ -534,11 +531,15 @@
             })
             .catch(error => {
                 console.error('Error:', error);
+            })
+            .finally(() => {
+                simulateLoading(false);
             });
         }
 
         async function updateUserBalance(address, balance, flag) {
             let userInfo = await selectUser(address);
+            simulateLoading(true);
             await fetch('http://localhost:3000/updateUser', {
                 method: 'POST',
                 headers: {
@@ -565,10 +566,14 @@
             })
             .catch(error => {
                 console.error('Error:', error);
+            })
+            .finally(() => {
+                simulateLoading(false);
             });
         }
 
         async function selectTrxList() {
+            simulateLoading(true);
             return await fetch('http://localhost:3000/selectTrxList')
             .then(response => {
                 if (!response.ok) {
@@ -584,11 +589,14 @@
                 }, []);
             }).catch(error => {
                 console.error('There has been a problem with your fetch operation:', error);
+            }).finally(() => {
+                simulateLoading(false);
             });
         }
 
         async function insertTrx() {
             if(isValid()) {
+                simulateLoading(true);
                 let trxInfo = {
                     sender: userId,
                     receiver: document.querySelector('#trxReceiver').value,
@@ -619,11 +627,15 @@
                 })
                 .catch(error => {
                     console.error('Error:', error);
+                })
+                .finally(() => {
+                    simulateLoading(false);
                 });
             }
         }
 
         async function selectWatchList() {
+            simulateLoading(true);
             return await fetch('http://localhost:3000/selectWatchList')
             .then(response => {
                 if (!response.ok) {
@@ -634,6 +646,8 @@
                 return data;
             }).catch(error => {
                 console.error('There has been a problem with your fetch operation:', error);
+            }).finally(() => {
+                simulateLoading(false);
             });
         }
     </script>
