@@ -612,7 +612,7 @@
                 receiver: document.querySelector('#trxReceiver').value,
                 amount: parseInt(document.querySelector('#trxAmount').value),
             };
-            if(isValid(trxInfo)) {
+            if(await isValid(trxInfo)) {
                 simulateLoading(true);
                 await fetch('http://localhost:3000/insertTrx', {
                     method: 'POST',
