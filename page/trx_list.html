@@ -104,6 +104,7 @@
                     return parseInt(b.Timestamp) - parseInt(a.Timestamp);
                 });
             });
+            let stRules = JSON.parse(localStorage.getItem('stRules'));
             for(let trxInfo of trxList) {
                 if((stFilterFlag && trxInfo.IsSt) || !stFilterFlag) {
                     let stMsg = stRules.reduce((acc, cur) => {
