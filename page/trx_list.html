@@ -106,6 +106,18 @@
             });
             for(let trxInfo of trxList) {
                 if((stFilterFlag && trxInfo.IsSt) || !stFilterFlag) {
+                    let stMsg = stRules.reduce((acc, cur) => {
+                        if(cur.StCode.toString() === valInfo.StCode.toString()) {
+                            acc = cur.StMsg;
+                        }
+                        return acc;
+                    }, "");
+                    let stSvrt = stRules.reduce((acc, cur) => {
+                        if(cur.StSvrt.toString() === valInfo.StSvrt.toString()) {
+                            acc = cur.StYn;
+                        }
+                        return acc;
+                    }, "");
                     html += 
                     `
                         <tr>
@@ -116,8 +128,8 @@
                             <td>${trxInfo.Receiver}</td>
                             <td>${trxInfo.IsSt}</td>
                             <td>${trxInfo.StCode || '-'}</td>
-                            <td>${trxInfo.StMsg || '-'}</td>
-                            <td>${trxInfo.StSvrt || '-'}</td>
+                            <td>${stMsg || '-'}</td>
+                            <td>${stSvrt || '-'}</td>
                             <td>${trxInfo.IsExecuted || false}</td>
                             <td>${getFormatDateTime(trxInfo.Timestamp)}</td>
                         </tr>
