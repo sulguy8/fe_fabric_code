@@ -386,7 +386,20 @@
                     return parseInt(b.Timestamp) - parseInt(a.Timestamp);
                 });
             });
+            let stRules = JSON.parse(localStorage.getItem('stRules'));
             for(let trxInfo of trxList) {
+                let stMsg = stRules.reduce((acc, cur) => {
+                    if(cur.StCode.toString() === trxInfo.StCode.toString()) {
+                        acc = cur.StMsg;
+                    }
+                    return acc;
+                }, "");
+                let stSvrt = stRules.reduce((acc, cur) => {
+                    if(cur.StSvrt.toString() === trxInfo.StSvrt.toString()) {
+                        acc = cur.StYn;
+                    }
+                    return acc;
+                }, "");
                 let TxId = trxInfo.TxId;
                 html += 
                 `
@@ -398,8 +411,8 @@
                         <td>${trxInfo.Receiver}</td>
                         <td>${trxInfo.IsSt}</td>
                         <td>${trxInfo.StCode || '-'}</td>
-                        <td>${trxInfo.StMsg || '-'}</td>
-                        <td>${trxInfo.StSvrt || '-'}</td>
+                        <td>${stMsg || '-'}</td>
+                        <td>${stSvrt || '-'}</td>
                         <td>${getFormatDateTime(trxInfo.Timestamp)}</td>
                     </tr>
                 `
