@@ -434,7 +434,7 @@
         
         let gTrxInfo;
         async function setValInfo(valInfo, trxResult, flag) {
-            gTrxInfo = trxResult;
+            gTrxInfo = JSON.parse(trxResult);
             document.querySelector('#valSuccess').hidden = true;
             document.querySelector('#valConfirm').hidden = true;
             document.querySelector('#valFail').hidden = true;
