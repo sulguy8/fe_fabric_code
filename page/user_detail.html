@@ -511,6 +511,9 @@
                 alert("잔액이 부족합니다.");
                 return false;
             }
+            if(trxInfo.sender === trxInfo.receiver) {
+                alert("동일 계정으로 송금은 불가능합니다.")
+            }
             return true;
         }
         
