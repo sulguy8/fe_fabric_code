@@ -603,7 +603,7 @@
                 return response.json();    
             }).then(data => {
                 return data.reduce((acc, cur) => {
-                    if(userId === cur.Sender || userId === cur.Recevier) {
+                    if(userId === cur.Sender || userId === cur.receiver) {
                         acc.push(cur);
                     }
                     return acc;
