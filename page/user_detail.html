@@ -442,9 +442,14 @@
             let msg = "";
             let stRules = JSON.parse(localStorage.getItem('stRules'));
             switch(flag) {
-                case 'success':
+                case 'none':
                     await setBalance();
                     msg = "* 요청하신 거래를 원장에 정상적으로 반영하였습니다.";
+                    document.querySelector('#valSuccess').hidden = false;
+                    break;
+                case 'success':
+                    await setBalance();
+                    msg = "통과 및 STR 사후보고";
                     document.querySelector('#valSuccess').hidden = false;
                     break;
                 case 'confirm':
@@ -635,16 +640,21 @@
                     let valInfo = JSON.parse(result);
                     let trxResult = result;
                     let amount = parseInt(document.querySelector('#trxAmount').value);
-                    switch(valInfo.StSvrt) {
-                        case 0 :
-                            await setValInfo(valInfo, trxResult, 'success');
-                            break;
-                        case 1 :
-                            await setValInfo(valInfo, trxResult, 'confirm');
-                            break;
-                        default :
-                            await setValInfo(valInfo, trxResult, 'fail');
-                            break;
+                    if(!valInfo.IsSt) {
+                        await setValInfo(valInfo, trxResult, 'none');
+                        return;
+                    } else {
+                        switch(valInfo.StSvrt) {
+                            case 0 :
+                                await setValInfo(valInfo, trxResult, 'success');
+                                break;
+                            case 1 :
+                                await setValInfo(valInfo, trxResult, 'confirm');
+                                break;
+                            default :
+                                await setValInfo(valInfo, trxResult, 'fail');
+                                break;
+                        }
                     }
                 })
                 .catch(error => {
