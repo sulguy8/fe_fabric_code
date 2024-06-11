@@ -444,21 +444,17 @@
             switch(flag) {
                 case 'none':
                     await setBalance();
-                    msg = "* 요청하신 거래를 원장에 정상적으로 반영하였습니다.";
-                    // document.querySelector('#valSuccess').hidden = false;
+                    document.querySelector('#valSuccess').hidden = false;
                     break;
                 case 'success':
                     await setBalance();
-                    msg = "통과 및 STR 사후보고";
-                    // document.querySelector('#valSuccess').hidden = false;
+                    document.querySelector('#valSuccess').hidden = false;
                     break;
                 case 'confirm':
                     document.querySelector('#valConfirm').hidden = false;
-                    // msg = "CODE" + valInfo.StCode + "에 의해 의심거래로 판단됩니다. 거래를 실행하시겠습니까?";
                     break;
                 case 'fail':
                     document.querySelector('#valFail').hidden = false;
-                    // msg = "CODE" + valInfo.StCode + "에 의해 의심거래로 판단되며, 거래를 실행할 수 없습니다.";
                     break;
             }
             document.querySelector('#valIsSt').innerText = valInfo.IsSt;
@@ -477,7 +473,6 @@
                     }
                     return acc;
                 }, "") || '-';
-            document.querySelector('#valText').innerText = msg || '-'; 
 
             valModal.showModal();
         }
