@@ -11,18 +11,19 @@
     if(!localStorage.getItem('initFlag')) {
         localStorage.setItem('initFlag', true);
         localStorage.setItem('stRules', JSON.stringify([
-            { StCode: '101', StSvrt: '0', StYn:"통과 및 STR 사후보고", StMsg: "[1일] 합산 [1천만 원] 이상의 가상자산 입금 후 혹은 동시에 당일 [1일] 합산 [1천만 원] 이상 가상자산 출금" },
-            { StCode: '102', StSvrt: '0', StYn:"통과 및 STR 사후보고", StMsg: "[1일] 합산 [5회] 이상 [100만 원] 이상의 가상자산 출금" },
-            { StCode: '105', StSvrt: '0', StYn:"통과 및 STR 사후보고", StMsg: "[1일] 합산 [10회] 이상 가상자산 입금" },
-            { StCode: '106', StSvrt: '0', StYn:"통과 및 STR 사후보고", StMsg: "[1일] 합산 [10회] 이상 가상자산 출금" },
-            { StCode: '110', StSvrt: '0', StYn:"통과 및 STR 사후보고", StMsg: "한 개의 지갑주소에 [7일]간 건당 [1백만 원] 이상이며 합산 [5개] 이상의 지갑 주소에서 가상자산 입금" },
-            { StCode: '111', StSvrt: '1', StYn:"확인 후 통과, STR 사후보고", StMsg: "한 개의 지갑주소에서 [7일]간 건당 [1백만 원] 이상이며 합산 [5개] 이상의 지갑 주소로 가상자산 출금" },
-            { StCode: '112', StSvrt: '1', StYn:"확인 후 통과, STR 사후보고", StMsg: "직업이 [무직, 학생, 종교인]인 고객 [1일] 합산 [5천만 원] 이상 가상자산 입금" },
-            { StCode: '113', StSvrt: '1', StYn:"확인 후 통과, STR 사후보고", StMsg: "직업이 [무직, 학생, 종교인]인 고객 [1일] 합산 [3천만 원] 이상 가상자산 출금" },
-            { StCode: '114', StSvrt: '1', StYn:"확인 후 통과, STR 사후보고", StMsg: "[만 65세] 이상의 고령 고객이 [3천만 원] 이상의 가상자산을 [1일]에 [3회] 이상 입금" },
-            { StCode: '115', StSvrt: '1', StYn:"확인 후 통과, STR 사후보고", StMsg: "[만 65세] 이상의 고령 고객이 [1천만 원] 이상 가상자산을 [1일]에 [2회] 이상 출금" },
-            { StCode: '120', StSvrt: '9', StYn:"거래 불가 및 STR 사후보고", StMsg: "[휴면계정] 고객 [휴면상태]에게 [1백만 원] 이상 가상자산 입금" },
-            { StCode: '121', StSvrt: '9', StYn:"거래 불가 및 STR 사후보고", StMsg: "[1일] [5백만 원] 이상 입금 후 [30분] 이내에 출금" }
+            { StCode: '101', StSvrt: '0', StYn:"통과 및 STR 사후보고", StMsg: "1일 합산 1천만원 이상의 가상자산 입금 후 혹은 동시에, 1일 합산 1천만원 이상 가상자산 출금" },
+            { StCode: '102', StSvrt: '0', StYn:"통과 및 STR 사후보고", StMsg: "1일 합산 5회 이상 100만원 이상의 가상자산 출금" },
+            { StCode: '105', StSvrt: '0', StYn:"통과 및 STR 사후보고", StMsg: "1일 합산 10회 이상 가상자산 입금" },
+            { StCode: '106', StSvrt: '0', StYn:"통과 및 STR 사후보고", StMsg: "1일 합산 10회 이상 가상자산 출금" },
+            { StCode: '110', StSvrt: '0', StYn:"통과 및 STR 사후보고", StMsg: "7일간 건당 1백만원 이상, 5개 이상의 지갑 주소에서 가상자산 입금" },
+            { StCode: '111', StSvrt: '1', StYn:"확인 후 통과, STR 사후보고", StMsg: "7일간 건당 1백만원 이상의 가상자산을 5개 이상의 지갑으로 출금" },
+            { StCode: '112', StSvrt: '1', StYn:"확인 후 통과, STR 사후보고", StMsg: "직업이 무직, 학생, 종교인인 고객에게 1일 합산 5천만원 이상 가상자산 입금" },
+            { StCode: '113', StSvrt: '1', StYn:"확인 후 통과, STR 사후보고", StMsg: "무직, 학생, 종교인인 고객이 1일 합산 3천만원 이상의 가상자산 출금" },
+            { StCode: '114', StSvrt: '1', StYn:"확인 후 통과, STR 사후보고", StMsg: "만 65세 이상의 고객이 3천만원 이상의 가상자산을 1일 3회 이상 입금" },
+            { StCode: '115', StSvrt: '1', StYn:"확인 후 통과, STR 사후보고", StMsg: "만 65세 이상의 고객이 1천만원 이상의 가상자산을 1일 2회 이상 출금" },
+            { StCode: '119', StSvrt: '9', StYn:"거래 불가 및 STR 사후보고", StMsg: "요주인물의 1일 합산, 3백만원 이상의 가상자산 출금" },
+            { StCode: '120', StSvrt: '9', StYn:"거래 불가 및 STR 사후보고", StMsg: "휴면고객에게 1백만원 이상 가상자산 입금" },
+            { StCode: '121', StSvrt: '9', StYn:"거래 불가 및 STR 사후보고", StMsg: "5백만원 이상의 가상자산 입금 후 30분 이내에 출금" }
         ]));
     }
     
